@@ -9,6 +9,11 @@ Draft v2. Items highlighted with yellow stripes on the page are placeholders awa
 - `index.html` — the full site (HTML, CSS and JS in one file; no build step)
 - `netlify.toml` — Netlify config and security headers
 
+## Live site (GitHub Pages)
+https://frank-peprah.github.io/orange-therapeutic-services/
+
+GitHub Pages serves `main` from the repo root. Pages cannot receive form submissions, so the enquiry form uses the copy-and-send-on-WhatsApp fallback there. Deploy on Netlify (below) to switch on live form delivery.
+
 ## Deploy (Netlify)
 1. In Netlify: **Add new site → Import an existing project → GitHub**, pick this repo. Publish directory: `.` (no build command).
 2. **Site configuration → Forms**: enable form detection, then trigger a redeploy. Two forms are registered: `enquiry` and `checklist`.

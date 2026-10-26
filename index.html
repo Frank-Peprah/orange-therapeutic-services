@@ -634,8 +634,8 @@ footer{background:var(--ink);color:var(--bg);padding-block:48px 32px;font-size:.
 
 <script>
 (function(){
-  // LIVE = deployed on our own domain (Netlify). Inside previews, enquiries fall back to copy-and-send.
-  var LIVE=!/claude|localhost|127\.0\.0\.1|^$/.test(location.hostname);
+  // LIVE = deployed on Netlify (form handling available). GitHub Pages and previews fall back to copy-and-send on WhatsApp.
+  var LIVE=!/claude|github\.io|localhost|127\.0\.0\.1|^$/.test(location.hostname);
   // Mobile menu
   var btn=document.getElementById('menuBtn'), links=document.getElementById('navLinks');
   btn.addEventListener('click',function(){
