@@ -24,6 +24,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="assets/fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/vendor/notyf-3.10.0.min.css">
 <link rel="stylesheet" href="assets/css/site.css">
 <script type="application/ld+json" id="ld">
 {"@context":"https://schema.org","@type":"MedicalBusiness","name":"Orange Therapeutic Services","url":"https://frank-peprah.github.io/orange-therapeutic-services/","logo":"https://frank-peprah.github.io/orange-therapeutic-services/assets/apple-touch-icon.png","image":"https://frank-peprah.github.io/orange-therapeutic-services/assets/og-image.png","description":"Behaviour therapy, psychological services, special education, occupational therapy and teacher training for children with disabilities and learning differences.","founder":{"@type":"Person","name":"Sarah Adu-Peprah"},"areaServed":[{"@type":"City","name":"Accra"},{"@type":"City","name":"Tema"}],"address":{"@type":"PostalAddress","addressLocality":"Accra","addressCountry":"GH"},"knowsAbout":["Behaviour therapy","Psychological assessment","Special education","Occupational therapy","Teacher training","Autism","ADHD","Learning differences"],"currenciesAccepted":"GHS"}
@@ -31,7 +32,6 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="draft" id="draftBanner"><div class="wrap">Preview: highlighted items are being confirmed and will be finalised before launch.</div></div>
 
 <header class="site">
   <div class="wrap nav">
@@ -40,17 +40,18 @@
       <span>Orange Therapeutic<small>Services · Ghana</small></span>
     </a>
     <button class="menu-btn" id="menuBtn" type="button" aria-controls="navLinks" aria-expanded="false" aria-label="Open menu">
-      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <svg class="i i-lg i-open" aria-hidden="true"><use href="assets/icons.svg#i-menu"/></svg><svg class="i i-lg i-close" aria-hidden="true"><use href="assets/icons.svg#i-x"/></svg>
     </button>
     <nav class="links" id="navLinks" data-open="false" aria-label="Main">
-      <a href="#services">Services</a>
-      <a href="#families">For families</a>
-      <a href="#institutions">For institutions</a>
-      <a href="#fees">Fees &amp; terms</a>
-      <a href="#team">Our team</a>
-      <a href="#faq">FAQ</a>
+      <a href="#services"><span>Services</span><svg class="i i-chev" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"/></svg></a>
+      <a href="#families"><span>For families</span><svg class="i i-chev" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"/></svg></a>
+      <a href="#institutions"><span>For institutions</span><svg class="i i-chev" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"/></svg></a>
+      <a href="#fees"><span>Fees &amp; terms</span><svg class="i i-chev" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"/></svg></a>
+      <a href="#team"><span>Our team</span><svg class="i i-chev" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"/></svg></a>
+      <a href="#faq"><span>FAQ</span><svg class="i i-chev" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"/></svg></a>
       <a class="btn btn-primary" href="#contact" data-pick="family">Book an assessment</a>
     </nav>
+    <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
   </div>
 </header>
 
@@ -65,7 +66,7 @@
       <h1 id="heroTitle">Every child can grow. <em>We help you see how.</em></h1>
       <p class="lede" id="heroLede">Behaviour therapy, psychological services, special education and occupational therapy for children with autism, ADHD, learning differences and other developmental needs. Each child gets a clear plan, sessions that fit the school term, and a progress review at the end of every term.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#contact" id="heroPrimary" data-pick="family">Book an assessment</a>
+        <a class="btn btn-primary" href="#contact" id="heroPrimary" data-pick="family"><span>Book an assessment</span><svg class="i i-arrow" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"/></svg></a>
         <a class="btn btn-ghost" href="#how" id="heroSecondary">See how it works</a>
       </div>
       <p class="hero-note">Serving families in <span class="ph" data-cms="service_area">Accra and Tema</span> · Sessions in person and online</p>
@@ -143,30 +144,35 @@
     <div class="svc-grid">
       <article class="svc">
         <span class="svc-for">Families · Schools</span>
+        <span class="svc-icon"><svg class="i i-lg" aria-hidden="true"><use href="assets/icons.svg#i-puzzle"/></svg></span>
         <h3>Behaviour therapy</h3>
         <p>Structured, positive approaches that help children manage emotions, build routines and replace challenging behaviour with new skills.</p>
         <ul><li>Behaviour assessment and support plan</li><li>One-to-one sessions</li><li>Parent coaching for home</li></ul>
       </article>
       <article class="svc">
         <span class="svc-for">Families · Schools</span>
+        <span class="svc-icon"><svg class="i i-lg" aria-hidden="true"><use href="assets/icons.svg#i-brain"/></svg></span>
         <h3>Psychological services</h3>
         <p>Assessment and support for children's emotional wellbeing, learning and development, with clear written findings for parents and schools.</p>
         <ul><li>Developmental and learning assessments</li><li>Emotional and wellbeing support</li><li>Reports for school planning</li></ul>
       </article>
       <article class="svc">
         <span class="svc-for">Families</span>
+        <span class="svc-icon"><svg class="i i-lg" aria-hidden="true"><use href="assets/icons.svg#i-school"/></svg></span>
         <h3>Special education services</h3>
         <p>Individualised teaching that meets each child at their level and builds literacy, numeracy and independence step by step.</p>
         <ul><li>Individual education plans</li><li>One-to-one and small-group teaching</li><li>Support for transition into school</li></ul>
       </article>
       <article class="svc">
         <span class="svc-for">Families</span>
+        <span class="svc-icon"><svg class="i i-lg" aria-hidden="true"><use href="assets/icons.svg#i-hand"/></svg></span>
         <h3>Occupational therapy</h3>
         <p>Building the everyday skills children need: handwriting, dressing, feeding, coordination and coping with sensory overload.</p>
         <ul><li>Fine and gross motor skills</li><li>Sensory regulation strategies</li><li>Self-care and independence</li></ul>
       </article>
       <article class="svc svc-wide">
         <span class="svc-for">Schools · NGOs · Organisations</span>
+        <span class="svc-icon"><svg class="i i-lg" aria-hidden="true"><use href="assets/icons.svg#i-graduation-cap"/></svg></span>
         <h3>Training for teachers</h3>
         <p>Practical training that equips teachers and caregivers to recognise additional needs early and support children well in mainstream classrooms.</p>
         <ul><li>Recognising signs of autism, ADHD and learning differences</li><li>Classroom and behaviour strategies</li><li>Whole-staff workshops or termly programmes</li></ul>
@@ -307,7 +313,7 @@
       <form class="inline-form" id="resForm" novalidate>
         <label for="resEmail" style="flex-basis:100%;font-weight:700">Email me the checklist</label>
         <input id="resEmail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
-        <button class="btn btn-primary" type="submit">Send it</button>
+        <button class="btn btn-primary" type="submit" id="resBtn"><svg class="i spin" aria-hidden="true"><use href="assets/icons.svg#i-loader-circle"/></svg><span class="lbl">Send it</span><svg class="i i-arrow" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"/></svg></button>
         <p class="hint" id="resMsg" role="status" style="flex-basis:100%">We'll only email you about this resource. See our <a href="legal.html#privacy-notice">Privacy Notice</a>.</p>
       </form>
     </div>
@@ -338,11 +344,11 @@
         <p class="lede">Choose the channel that suits you.</p>
       </div>
       <div class="channels">
-        <div class="channel"><div><b>WhatsApp</b><span class="ph" id="waNum" data-cms="whatsapp">+233 XX XXX XXXX</span></div><a class="btn btn-wa" data-wa href="#contact" hidden>Chat now</a></div>
-        <div class="channel"><div><b>Phone</b><span class="ph" id="telNum" data-cms="phone">+233 XX XXX XXXX</span></div><button class="copy" type="button" data-copy="telNum">Copy</button></div>
-        <div class="channel"><div><b>Email</b><span class="ph" id="mailAddr" data-cms="email">hello@orangetherapy.com.gh</span></div><button class="copy" type="button" data-copy="mailAddr">Copy</button></div>
-        <div class="channel"><div><b>Visit</b><span class="ph" data-cms="address">Street address, Accra</span></div></div>
-        <div class="channel"><div><b>Hours</b><span class="ph" data-cms="hours">Monday to Friday, 8am – 5pm</span></div></div>
+        <div class="channel"><div class="ch-main"><span class="ch-ico"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-message-circle"/></svg></span><div><b>WhatsApp</b><span class="ph" id="waNum" data-cms="whatsapp">+233 XX XXX XXXX</span></div></div><a class="btn btn-wa" data-wa href="#contact" hidden>Chat now</a></div>
+        <div class="channel"><div class="ch-main"><span class="ch-ico"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-phone"/></svg></span><div><b>Phone</b><span class="ph" id="telNum" data-cms="phone">+233 XX XXX XXXX</span></div></div><button class="copy" type="button" data-copy="telNum" aria-label="Copy phone number"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-copy"/></svg> Copy</button></div>
+        <div class="channel"><div class="ch-main"><span class="ch-ico"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-mail"/></svg></span><div><b>Email</b><span class="ph" id="mailAddr" data-cms="email">hello@orangetherapy.com.gh</span></div></div><button class="copy" type="button" data-copy="mailAddr" aria-label="Copy email address"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-copy"/></svg> Copy</button></div>
+        <div class="channel"><div class="ch-main"><span class="ch-ico"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-map-pin"/></svg></span><div><b>Visit</b><span class="ph" data-cms="address">Street address, Accra</span></div></div></div>
+        <div class="channel"><div class="ch-main"><span class="ch-ico"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-clock"/></svg></span><div><b>Hours</b><span class="ph" data-cms="hours">Monday to Friday, 8am – 5pm</span></div></div></div>
       </div>
     </div>
 
@@ -355,8 +361,8 @@
         </div>
       </div>
       <div class="two">
-        <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" maxlength="120" required></div>
-        <div class="field"><label for="phone">Phone or WhatsApp</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" required></div>
+        <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" maxlength="120" required aria-describedby="name-err"><span class="err-msg" id="name-err" role="alert"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-circle-alert"/></svg>Please tell us your name.</span></div>
+        <div class="field"><label for="phone">Phone or WhatsApp</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" required aria-describedby="phone-err"><span class="err-msg" id="phone-err" role="alert"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-circle-alert"/></svg>Enter a phone or WhatsApp number we can reach.</span></div>
       </div>
       <div id="famFields" class="two">
         <div class="field"><label for="age">Child's age</label><input id="age" name="age" inputmode="numeric" maxlength="20" placeholder="e.g. 6"></div>
@@ -366,15 +372,15 @@
           <select id="service" name="service"><option value="">Not sure, please advise</option><option>Behaviour therapy</option><option>Psychological services</option><option>Special education services</option><option>Occupational therapy</option></select></div>
       </div>
       <div id="instFields" class="two" hidden>
-        <div class="field"><label for="org">Organisation</label><input id="org" name="org" autocomplete="organization" maxlength="160"></div>
+        <div class="field"><label for="org">Organisation</label><input id="org" name="org" autocomplete="organization" maxlength="160" aria-describedby="org-err"><span class="err-msg" id="org-err" role="alert"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-circle-alert"/></svg>Please add your organisation’s name.</span></div>
         <div class="field"><label for="need">What do you need?</label>
           <select id="need" name="need"><option value="">Choose one</option><option>Teacher training</option><option>Inclusion audit</option><option>Programme consultancy</option><option>Parent-employee support</option><option>Something else</option></select></div>
       </div>
       <div class="field"><label for="msg">Anything else we should know?</label><textarea id="msg" name="msg" rows="4" maxlength="2000"></textarea><span class="hint">Please don't include detailed medical records here. We'll ask for what we need securely.</span></div>
       <div class="hp" aria-hidden="true"><label for="website">Leave this empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
-      <label class="consent"><input type="checkbox" id="consent" name="consent"><span>I agree that Orange Therapeutic Services may use these details to respond to my enquiry, as described in the <a href="legal.html#privacy-notice">Privacy Notice</a>.</span></label>
+      <label class="consent" id="consentLabel"><input type="checkbox" id="consent" name="consent"><span>I agree that Orange Therapeutic Services may use these details to respond to my enquiry, as described in the <a href="legal.html#privacy-notice">Privacy Notice</a>.</span></label>
       <p class="error" id="formErr" role="alert" hidden></p>
-      <button class="btn btn-primary" type="submit" id="sendBtn">Send enquiry</button>
+      <button class="btn btn-primary" type="submit" id="sendBtn"><svg class="i spin" aria-hidden="true"><use href="assets/icons.svg#i-loader-circle"/></svg><span class="lbl">Send enquiry</span><svg class="i i-arrow" aria-hidden="true"><use href="assets/icons.svg#i-send"/></svg></button>
       <div class="result" id="result" hidden role="status"></div>
     </form>
   </div>
@@ -402,7 +408,7 @@
         <li class="ph" data-cms="phone">+233 XX XXX XXXX</li>
         <li class="ph" data-cms="email">hello@orangetherapy.com.gh</li>
         <li class="ph" data-cms="city">Accra, Ghana</li>
-        <li><a class="staff-link" href="admin/" rel="nofollow"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5z" fill="none" stroke="currentColor" stroke-width="2"/></svg>Staff access</a></li>
+        <li><a class="staff-link" href="admin/" rel="nofollow"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-lock"/></svg>Staff access</a></li>
       </ul></div>
     </div>
     <div class="legal-line">
@@ -418,12 +424,15 @@
   <span>WhatsApp us</span>
 </a>
 
+<button class="to-top" id="toTop" type="button" aria-label="Back to top"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#i-arrow-up"/></svg></button>
+
 <div class="cookie" id="cookie" role="region" aria-label="Cookie notice" hidden>
   <p><strong>Your privacy.</strong> This site uses only essential browser storage (to remember your choices). No analytics or advertising cookies, and no tracking. <a href="legal.html#cookie-policy">Cookie Policy</a></p>
   <div class="cta-row"><button type="button" class="btn btn-primary" id="cookieOk">OK, got it</button></div>
 </div>
 
 <script src="assets/js/config.js"></script>
+<script src="assets/vendor/notyf-3.10.0.min.js"></script>
 <script src="assets/js/site.js"></script>
 </body>
 </html>

@@ -48,11 +48,43 @@
     return fmt(ts);
   }
   function pill(status) { return h('span', { class: 'pill s-' + status, text: STATUS_LABEL[status] || status }); }
+  var motionOK = !window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var notyf = window.Notyf ? new window.Notyf({ duration: 3500, dismissible: true, ripple: motionOK, position: { x: 'right', y: 'bottom' },
+    types: [{ type: 'success', background: '#1C7A44', icon: false }, { type: 'error', background: '#B54A05', icon: false, duration: 7000 }, { type: 'info', background: '#17323A', icon: false }] }) : null;
   function flash(msg, isErr) {
-    var stack = document.getElementById('flashes') || document.body.appendChild(h('div', { id: 'flashes', class: 'flashes' }));
+    if (notyf) { if (isErr) notyf.error(msg); else notyf.success(msg); return; }
     var f = h('div', { class: 'flash' + (isErr ? ' err' : ''), role: isErr ? 'alert' : 'status', text: msg });
-    stack.appendChild(f); setTimeout(function () { f.remove(); }, isErr ? 6000 : 2600);
+    document.body.appendChild(f); setTimeout(function () { f.remove(); }, isErr ? 6000 : 2600);
   }
+  function info(msg) { if (notyf) notyf.open({ type: 'info', message: msg }); else flash(msg); }
+  // ---------- icons (Lucide sprite) ----------
+  var SPRITE = '../assets/icons.svg';
+  function ico(name, cls) {
+    var NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg'), use = document.createElementNS(NS, 'use');
+    svg.setAttribute('class', cls || 'i'); svg.setAttribute('aria-hidden', 'true'); use.setAttribute('href', SPRITE + '#i-' + name); svg.appendChild(use); return svg;
+  }
+  // ---------- confirm dialog (native <dialog>) ----------
+  function confirmDialog(o) {
+    return new Promise(function (resolve) {
+      var dlg = h('dialog', { class: 'confirm' + (o.danger ? ' danger' : ''), 'aria-labelledby': 'dlgTitle' });
+      var done = function (val) { dlg.close(); dlg.remove(); resolve(val); };
+      var ok = h('button', { class: 'btn btn-primary', type: 'button', onclick: function () { done(true); } }, o.confirm || 'Confirm');
+      var cancel = h('button', { class: 'btn btn-ghost', type: 'button', onclick: function () { done(false); } }, o.cancel || 'Cancel');
+      dlg.append(h('div', { class: 'dlg-body' }, h('span', { class: 'dlg-ico' }, ico(o.icon || (o.danger ? 'trash-2' : 'circle-alert'), 'i i-lg')),
+        h('h2', { id: 'dlgTitle', text: o.title }), o.body ? h('p', { text: o.body }) : null), h('div', { class: 'dlg-actions' }, cancel, ok));
+      dlg.addEventListener('cancel', function (e) { e.preventDefault(); done(false); });
+      document.body.appendChild(dlg);
+      if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+      (o.danger ? cancel : ok).focus();
+    });
+  }
+  // ---------- button loading state ----------
+  function loading(btn, on, label) {
+    if (!btn) return;
+    if (on) { btn.dataset.lbl = btn.textContent; btn.classList.add('loading'); btn.disabled = true; btn.textContent = ''; btn.append(ico('loader-circle', 'i spin'), h('span', { text: label || 'Working…' })); }
+    else { btn.classList.remove('loading'); btn.disabled = false; clear(btn).append(btn.dataset.lbl || label || ''); }
+  }
+  function swap(fn) { if (motionOK && document.startViewTransition) document.startViewTransition(fn); else fn(); }
   function errMsg(e) {
     var m = (e && (e.message || e.error_description)) || String(e);
     if (/JWT|session/i.test(m)) return 'Your session has expired. Please sign in again.';
@@ -82,12 +114,7 @@
     var id = input.id || ('f' + Math.random().toString(36).slice(2, 8)); input.id = id;
     return h('div', { class: 'field' }, h('label', { for: id, text: label }), input, hint ? h('span', { class: 'hint', text: hint }) : null);
   }
-  function confirmInline(btn, label, action) {
-    // Two-step confirm inside the button itself (browser confirm() dialogs are avoided)
-    if (btn.dataset.armed) { delete btn.dataset.armed; btn.textContent = btn.dataset.orig; action(); return; }
-    btn.dataset.orig = btn.textContent; btn.dataset.armed = '1'; btn.textContent = label;
-    setTimeout(function () { if (btn.dataset.armed) { delete btn.dataset.armed; btn.textContent = btn.dataset.orig; } }, 4000);
-  }
+
   window.addEventListener('beforeunload', function (e) { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
 
   // =====================================================================
@@ -109,9 +136,10 @@
       var em = h('input', { type: 'email', autocomplete: 'username', required: true }), pw = h('input', { type: 'password', autocomplete: 'current-password', required: true });
       var go = h('button', { class: 'btn btn-primary', type: 'submit', text: 'Sign in' });
       form = h('form', { onsubmit: function (e) {
-        e.preventDefault(); go.disabled = true; msg.textContent = 'Signing in…';
+        e.preventDefault(); loading(go, true, 'Signing in…'); msg.textContent = '';
         sb.auth.signInWithPassword({ email: em.value.trim(), password: pw.value }).then(function (r) {
-          go.disabled = false;
+          loading(go, false);
+          if (!r.error) info('Welcome back');
           if (r.error) msg.textContent = /confirm/i.test(r.error.message) ? 'Please confirm your email address first. Check your inbox for the link.' : 'Email or password is incorrect.';
         });
       } }, field('Email', em), field('Password', pw), go,
@@ -172,21 +200,26 @@
         h('button', { class: 'btn btn-primary', type: 'button', onclick: function () { boot(); }, text: 'Check again' }),
         h('button', { class: 'btn btn-ghost', type: 'button', onclick: signOut, text: 'Sign out' })))));
   }
-  function signOut() { dirty = false; sb.auth.signOut().then(function () { me = null; session = null; renderAuth('signin', 'You have signed out.'); }); }
+  function signOut() {
+    (dirty ? confirmDialog({ title: 'Sign out with unsaved changes?', body: 'Your unsaved edits will be lost.', confirm: 'Sign out', danger: true, icon: 'log-out' }) : Promise.resolve(true)).then(function (yes) {
+      if (!yes) return; dirty = false;
+      sb.auth.signOut().then(function () { me = null; session = null; renderAuth('signin', 'You have signed out.'); info('Signed out'); });
+    });
+  }
 
   // =====================================================================
   // SHELL + ROUTER
   // =====================================================================
   var VIEWS = [
-    ['overview', 'Overview'], ['enquiries', 'Enquiries'], ['content', 'Site content'], ['legal', 'Legal documents'],
-    ['signups', 'Checklist sign-ups'], ['staff', 'Staff', true], ['activity', 'Activity log', true], ['account', 'My account']
+    ['overview', 'Overview', false, 'layout-dashboard'], ['enquiries', 'Enquiries', false, 'inbox'], ['content', 'Site content', false, 'file-pen'], ['legal', 'Legal documents', false, 'scale'],
+    ['signups', 'Checklist sign-ups', false, 'mail-check'], ['staff', 'Staff', true, 'user-cog'], ['activity', 'Activity log', true, 'history'], ['account', 'My account', false, 'circle-user']
   ];
   var pane;
   function renderShell() {
     var nav = h('nav', { 'aria-label': 'Staff sections' });
     VIEWS.forEach(function (v) {
       if (v[2] && !isAdmin()) return;
-      nav.appendChild(h('a', { href: '#' + v[0], 'data-view': v[0] }, h('span', { text: v[1] }), h('span', { class: 'count', 'data-count': v[0], hidden: true })));
+      nav.appendChild(h('a', { href: '#' + v[0], 'data-view': v[0] }, h('span', { class: 'nav-l' }, ico(v[3]), h('span', { text: v[1] })), h('span', { class: 'count', 'data-count': v[0], hidden: true })));
     });
     pane = h('main', { class: 'pane', id: 'pane', tabindex: '-1' });
     clear(app).appendChild(h('div', { class: 'admin-shell' },
@@ -195,7 +228,7 @@
           h('span', null, 'Orange Therapeutic', h('small', null, 'Staff area'))),
         nav,
         h('div', { class: 'who' }, h('div', null, h('b', { text: me.full_name || me.email }), h('span', { text: (me.role || '') + ' · ' + me.email })),
-          h('button', { class: 'btn btn-ghost btn-sm', type: 'button', onclick: signOut, text: 'Sign out' }))),
+          h('button', { class: 'btn btn-ghost btn-sm', type: 'button', onclick: signOut }, ico('log-out'), ' Sign out'))),
       pane));
     refreshCounts();
     route();
@@ -210,23 +243,26 @@
     if (isAdmin()) sb.from('staff').select('user_id', { count: 'exact', head: true }).is('role', null).then(function (r) { setCount('staff', r.count || 0); });
   }
   function route() {
-    if (dirty && !window.__leaveOk) {
-      // keep the user on the page if they have unsaved edits
-      if ((location.hash.replace('#', '') || 'overview') !== route.full) {
+    if (dirty) {
+      var target = location.hash.replace('#', '') || 'overview';
+      if (target !== route.full) {
         history.replaceState(null, '', '#' + route.full);
-        flash('You have unsaved changes. Save them, or click the link again to discard.', true);
-        window.__leaveOk = true; setTimeout(function () { window.__leaveOk = false; }, 5000);
+        confirmDialog({ title: 'Leave without saving?', body: 'You have unsaved changes on this page.', confirm: 'Leave and discard', cancel: 'Stay and keep editing', danger: true, icon: 'circle-alert' })
+          .then(function (yes) { if (yes) { dirty = false; location.hash = '#' + target; } });
         return;
       }
     }
-    dirty = false; window.__leaveOk = false;
+    dirty = false;
     var parts = location.hash.replace('#', '').split('/'), view = parts[0] || 'overview';
     if (!VIEWS.some(function (v) { return v[0] === view && (!v[2] || isAdmin()); })) view = 'overview';
     route.current = view; route.full = location.hash.replace('#', '') || 'overview';
     app.querySelectorAll('[data-view]').forEach(function (a) { if (a.dataset.view === view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-    clear(pane).appendChild(h('p', { class: 'muted', text: 'Loading…' }));
+    pane.classList.add('is-loading');
     var fn = { overview: viewOverview, enquiries: viewEnquiries, content: viewContent, legal: viewLegal, signups: viewSignups, staff: viewStaff, activity: viewActivity, account: viewAccount }[view];
-    Promise.resolve().then(function () { return fn(parts.slice(1)); }).catch(function (e) {
+    Promise.resolve().then(function () { return fn(parts.slice(1)); }).then(function () {
+      pane.classList.remove('is-loading'); pane.focus({ preventScroll: true }); window.scrollTo(0, 0);
+    }).catch(function (e) {
+      pane.classList.remove('is-loading');
       clear(pane).appendChild(h('div', { class: 'card' }, h('strong', { text: 'Something went wrong loading this page.' }), h('p', { class: 'muted', text: errMsg(e) })));
     });
   }
@@ -251,7 +287,6 @@
       var ph = content.filter(function (c) { return c.is_placeholder; }).length;
       var published = {}; legal.forEach(function (l) { if (l.status === 'published') published[l.slug] = 1; });
       var inReview = legal.filter(function (l) { return l.status === 'in_review'; }).length;
-      var banner = (content.filter(function (c) { return c.key === 'show_draft_banner'; })[0] || {}).value;
       var docsTotal = Object.keys(legal.reduce(function (a, l) { a[l.slug] = 1; return a; }, {})).length;
       clear(pane).append(
         head('Good ' + (new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening') + ', ' + ((me.full_name || '').split(' ')[0] || 'there'), 'Here is where the website stands today.'),
@@ -265,7 +300,7 @@
           h('ul', { style: 'margin:0;padding-left:20px;display:grid;gap:6px' },
             h('li', null, ph ? ph + ' content placeholders to replace. ' : '✓ All content confirmed. ', h('a', { href: '#content', text: 'Site content' })),
             h('li', null, Object.keys(published).length + ' of ' + docsTotal + ' legal documents published (after counsel review). ', h('a', { href: '#legal', text: 'Legal documents' })),
-            h('li', null, String(banner).toLowerCase() === 'no' ? '✓ Draft banner hidden.' : 'Draft banner is showing. Turn it off in Site content → Footer & legal when ready.'),
+            h('li', null, 'Use ', h('a', { href: SITE_URL + '?review=1', target: '_blank', rel: 'noopener', text: 'Preview website' }), ' to see unconfirmed items highlighted. Visitors never see the highlighting.'),
             h('li', { text: 'Privacy Notice must be published before the site is promoted, because the forms collect personal data (Act 843).' }))),
         h('div', { class: 'card', style: 'margin-top:16px' },
           h('div', { class: 'pane-head', style: 'margin-bottom:8px' }, h('h2', { style: 'font-size:1.15rem', text: 'Latest enquiries' }), h('a', { class: 'btn btn-ghost btn-sm', href: '#enquiries', text: 'See all' })),
@@ -330,17 +365,18 @@
       facts.push(['Message', e.message], ['Privacy notice', e.privacy_version ? 'v' + e.privacy_version + ' accepted' : 'accepted']);
       var dl = h('dl', { class: 'facts' }); facts.forEach(function (f) { dl.append(h('dt', { text: f[0] }), h('dd', { text: f[1] || '—' })); });
       var save = h('button', { class: 'btn btn-primary', type: 'button', hidden: !canEdit(), text: 'Save', onclick: function () {
-        save.disabled = true;
+        loading(save, true, 'Saving…');
         sb.from('enquiries').update({ status: status.value, assigned_to: assign.value || null, staff_notes: notes.value.trim() || null }).eq('id', id).then(function (u) {
-          save.disabled = false; if (u.error) return flash(errMsg(u.error), true);
-          flash('Enquiry updated'); closeDrawer(); refreshCounts(); if (route.current === 'enquiries' || route.current === 'overview') route();
+          loading(save, false); if (u.error) return flash(errMsg(u.error), true);
+          flash('Enquiry updated: ' + STATUS_LABEL[status.value]); closeDrawer(); refreshCounts(); if (route.current === 'enquiries' || route.current === 'overview') route();
         });
       } });
-      var del = isAdmin() ? h('button', { class: 'btn btn-ghost', type: 'button', text: 'Delete', onclick: function () {
-        confirmInline(del, 'Click again to delete permanently', function () {
+      var del = isAdmin() ? h('button', { class: 'btn btn-ghost', type: 'button', onclick: function () {
+        confirmDialog({ title: 'Delete this enquiry?', body: 'The enquiry from ' + e.name + ' will be permanently removed. This cannot be undone.', confirm: 'Delete permanently', danger: true }).then(function (yes) {
+          if (!yes) return;
           sb.from('enquiries').delete().eq('id', id).then(function (d) { if (d.error) return flash(errMsg(d.error), true); flash('Enquiry deleted'); closeDrawer(); route(); refreshCounts(); });
         });
-      } }) : null;
+      } }, ico('trash-2'), ' Delete') : null;
       openDrawer(e.name, [
         h('div', { class: 'cta-row' },
           h('a', { class: 'btn btn-wa btn-sm', href: 'https://wa.me/' + phoneDigits, target: '_blank', rel: 'noopener', text: 'WhatsApp' }),
@@ -372,7 +408,9 @@
       var rows = must(r), changed = {};
       var counter = h('span'), saveAll = h('button', { class: 'btn btn-sun btn-sm', type: 'button', text: 'Save changes', disabled: true });
       var bar = h('div', { class: 'savebar', hidden: true }, counter, h('div', { class: 'cta-row' },
-        h('button', { class: 'btn btn-ghost btn-sm', type: 'button', style: 'color:var(--bg);border-color:var(--bg)', text: 'Discard', onclick: function () { dirty = false; route(); } }), saveAll));
+        h('button', { class: 'btn btn-ghost btn-sm', type: 'button', style: 'color:var(--bg);border-color:var(--bg)', text: 'Discard', onclick: function () {
+          confirmDialog({ title: 'Discard your changes?', body: 'Unsaved edits on this page will be lost.', confirm: 'Discard', danger: true, icon: 'trash-2' }).then(function (yes) { if (yes) { dirty = false; route(); info('Changes discarded'); } });
+        } }), saveAll));
       function mark() {
         var n = Object.keys(changed).length; dirty = n > 0;
         counter.textContent = n + ' unsaved change' + (n === 1 ? '' : 's'); bar.hidden = !n; saveAll.disabled = !n;
@@ -405,14 +443,14 @@
         wrap.appendChild(card);
       });
       saveAll.addEventListener('click', function () {
-        var keys = Object.keys(changed); saveAll.disabled = true; saveAll.textContent = 'Saving…';
+        var keys = Object.keys(changed); loading(saveAll, true, 'Saving…');
         Promise.all(keys.map(function (k) { return sb.from('site_content').update(changed[k]).eq('key', k).then(must); })).then(function () {
           dirty = false; flash(keys.length + ' change' + (keys.length === 1 ? '' : 's') + ' saved. The website updates immediately.'); route();
-        }).catch(function (e) { saveAll.disabled = false; saveAll.textContent = 'Save changes'; flash(errMsg(e), true); });
+        }).catch(function (e) { loading(saveAll, false); flash(errMsg(e), true); });
       });
       var remaining = rows.filter(function (x) { return x.is_placeholder; }).length;
       clear(pane).append(head('Site content', remaining + ' placeholder' + (remaining === 1 ? '' : 's') + ' left. Changes go live on the website as soon as you save.',
-        [h('a', { class: 'btn btn-ghost btn-sm', href: SITE_URL, target: '_blank', rel: 'noopener', text: 'View website' })]),
+        [h('a', { class: 'btn btn-ghost btn-sm', href: SITE_URL + '?review=1', target: '_blank', rel: 'noopener' }, ico('eye'), ' Preview website')]),
         canEdit() ? null : h('p', { class: 'notice', text: 'You have read-only access.' }), wrap, bar);
     });
   }
@@ -468,33 +506,39 @@
 
       function save() {
         if (!editable) return Promise.resolve();
-        saveBtn.disabled = true; saveBtn.textContent = 'Saving…';
+        loading(saveBtn, true, 'Saving…');
         return sb.from('legal_versions').update({ title: titleIn.value.trim() || current.title, body_md: ta.value, change_note: noteIn.value.trim() || null }).eq('id', current.id).then(function (u) {
-          saveBtn.textContent = 'Save draft';
-          if (u.error) { saveBtn.disabled = false; flash(errMsg(u.error), true); throw u.error; }
-          dirty = false; flash('Draft saved');
+          loading(saveBtn, false); saveBtn.textContent = 'Save draft';
+          if (u.error) { flash(errMsg(u.error), true); throw u.error; }
+          saveBtn.disabled = true; dirty = false; flash('Draft saved at ' + new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }));
         });
       }
-      function rpc(name, args, ok) {
-        return sb.rpc(name, args).then(function (x) { if (x.error) { flash(errMsg(x.error), true); return; } dirty = false; flash(ok); refreshCounts(); route(); });
+      function rpc(name, args, ok, btn) {
+        if (btn) loading(btn, true, 'Working…');
+        return sb.rpc(name, args).then(function (x) { if (btn) loading(btn, false); if (x.error) { flash(errMsg(x.error), true); return; } dirty = false; flash(ok); refreshCounts(); route(); });
       }
       var saveBtn = h('button', { class: 'btn btn-primary btn-sm', type: 'button', text: 'Save draft', disabled: true, onclick: save });
       var actions = h('div', { class: 'workflow' });
       if (current.status === 'draft' && canEdit()) {
-        actions.append(saveBtn, h('button', { class: 'btn btn-teal btn-sm', type: 'button', text: 'Submit for review', onclick: function () {
-          (dirty ? save() : Promise.resolve()).then(function () { rpc('legal_submit', { p_id: current.id, p_note: noteIn.value.trim() || null }, 'Sent for review'); }).catch(function () {});
-        } }));
+        var subBtn = h('button', { class: 'btn btn-teal btn-sm', type: 'button', onclick: function () {
+          confirmDialog({ title: 'Submit v' + current.version + ' for review?', body: 'Editing locks until an administrator approves it or sends it back with comments.', confirm: 'Submit for review', icon: 'send' }).then(function (yes) {
+            if (!yes) return;
+            (dirty ? save() : Promise.resolve()).then(function () { rpc('legal_submit', { p_id: current.id, p_note: noteIn.value.trim() || null }, 'Sent for review', subBtn); }).catch(function () {});
+          });
+        } }, ico('send'), ' Submit for review');
+        actions.append(saveBtn, subBtn);
       }
       if (current.status === 'in_review' && isAdmin()) {
         actions.append(
-          h('button', { class: 'btn btn-teal btn-sm', type: 'button', text: 'Approve', onclick: function () { rpc('legal_approve', { p_id: current.id }, 'Approved. Publish when ready.'); } }),
+          h('button', { class: 'btn btn-teal btn-sm', type: 'button', onclick: function (ev) { var b = ev.currentTarget; confirmDialog({ title: 'Approve v' + current.version + '?', body: 'Approval confirms the text is final. You can then publish it with an effective date.', confirm: 'Approve', icon: 'circle-check' }).then(function (yes) { if (yes) rpc('legal_approve', { p_id: current.id }, 'Approved. Publish when ready.', b); }); } }, ico('circle-check'), ' Approve'),
           requestChangesBtn());
       }
       if (current.status === 'approved' && isAdmin()) {
         var eff = h('input', { type: 'date', value: new Date().toISOString().slice(0, 10), 'aria-label': 'Effective date', style: 'width:auto;min-height:40px' });
-        var pubBtn = h('button', { class: 'btn btn-primary btn-sm', type: 'button', text: 'Publish to website', onclick: function () {
-          confirmInline(pubBtn, 'Click again to publish', function () { rpc('legal_publish', { p_id: current.id, p_effective: eff.value || null }, 'Published. It is now live on the website.'); });
-        } });
+        var pubBtn = h('button', { class: 'btn btn-primary btn-sm', type: 'button', onclick: function () {
+          confirmDialog({ title: 'Publish ' + docRow.title + ' v' + current.version + '?', body: 'It will appear on the website immediately, effective ' + (eff.value || 'today') + '.' + (pub ? ' Live v' + pub.version + ' will be archived.' : '') + ' Confirm counsel has approved this text.', confirm: 'Publish now', icon: 'send' })
+            .then(function (yes) { if (yes) rpc('legal_publish', { p_id: current.id, p_effective: eff.value || null }, 'Published. It is now live on the website.', pubBtn); });
+        } }, ico('send'), ' Publish to website');
         actions.append(h('label', { class: 'hint', text: 'Effective from' }), eff, pubBtn, requestChangesBtn());
       }
       if ((current.status === 'published' || current.status === 'archived') && canEdit()) {
@@ -504,7 +548,8 @@
       }
       if (pub && isAdmin()) {
         var unpub = h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: 'Take off website', onclick: function () {
-          confirmInline(unpub, 'Click again to remove from website', function () { rpc('legal_unpublish', { p_slug: slug }, 'Removed from the website'); });
+          confirmDialog({ title: 'Take ' + docRow.title + ' off the website?', body: 'Visitors will see "being finalised" until a new version is published. Policies such as the Privacy Notice should stay live while the forms collect data.', confirm: 'Take it down', danger: true, icon: 'circle-alert' })
+            .then(function (yes) { if (yes) rpc('legal_unpublish', { p_slug: slug }, 'Removed from the website', unpub); });
         } });
         actions.append(unpub);
       }
@@ -553,7 +598,8 @@
 
       var counselCount = (ta.value.match(/\[COUNSEL NOTE/g) || []).length, phCount = (ta.value.match(/\[[^\]\n]{1,60}\]/g) || []).filter(function (s) { return !/COUNSEL NOTE/.test(s); }).length;
       clear(pane).append(
-        head(docRow.title, null, [h('a', { class: 'btn btn-ghost btn-sm', href: '#legal', text: '← All documents' }), pub ? h('a', { class: 'btn btn-ghost btn-sm', href: SITE_URL + 'legal.html#' + slug, target: '_blank', rel: 'noopener', text: 'View on website' }) : null]),
+        h('nav', { class: 'crumbs', 'aria-label': 'Breadcrumb' }, h('a', { href: '#legal', text: 'Legal documents' }), ico('chevron-right'), h('span', { 'aria-current': 'page', text: docRow.title })),
+        head(docRow.title, null, [h('a', { class: 'btn btn-ghost btn-sm', href: '#legal' }, ico('arrow-left'), ' All documents'), pub ? h('a', { class: 'btn btn-ghost btn-sm', href: SITE_URL + 'legal.html#' + slug, target: '_blank', rel: 'noopener', text: 'View on website' }) : null]),
         h('div', { class: 'legal-cols' },
           h('div', { class: 'stack' },
             h('div', { class: 'card stack' },

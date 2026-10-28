@@ -28,11 +28,16 @@ Edits made in the staff area (content, legal documents) go live immediately with
 | [jsdiff](https://github.com/kpdecker/jsdiff) | 9.0.0 | BSD-3-Clause | Showing changes between document versions |
 | [Bricolage Grotesque](https://github.com/ateliertriay/bricolage) via Fontsource | 5.1.1 | OFL-1.1 | Display typeface |
 | [Atkinson Hyperlegible](https://www.brailleinstitute.org/freefont/) via Fontsource | 5.1.1 | OFL-1.1 | Body typeface, designed for low-vision readability |
+| [Lucide](https://github.com/lucide-icons/lucide) | 1.55.0 | ISC | Icon set (51 icons in `assets/icons.svg`) |
+| [Open Props](https://github.com/argyleink/open-props) | 1.7.23 | MIT | Easing curves for animations |
+| [Notyf](https://github.com/caroso1222/notyf) | 3.10.0 | MIT | Accessible toast status messages |
+
+Page-to-page transitions use the browser's built-in View Transitions API (no library). Considered and rejected: Tabler (requires a Bootstrap rewrite, ~500KB), Pico CSS (its default styling would fight the brand design), Swup (native transitions cover it), AOS (unmaintained since 2022).
 
 Licence texts are in `assets/licenses/`. Everything is self-hosted, so the public site makes no requests to Google or CDNs.
 
 ## Professional features included
-Mobile-first responsive layout · WCAG 2.2 AA patterns (skip link, focus states, 44px+ tap targets, reduced motion, labelled forms) · dark mode · structured data (schema.org `MedicalBusiness`) · Open Graph share image · favicon, touch icon and web manifest · `sitemap.xml` and `robots.txt` (admin excluded) · custom 404 · Content Security Policy · cookie notice (essential storage only) · WhatsApp click-to-chat · enquiry form saved to the database with consent recorded against the Privacy Notice version · spam honeypot and rate limit · print-friendly legal pages.
+Mobile-first responsive layout · scroll-spy navigation, animated mobile menu, back-to-top · animated links, buttons and page transitions (all disabled under reduced-motion) · inline form validation, loading states, confirmation panel with enquiry reference, toast messages, confirmation dialogs in the staff area · WCAG 2.2 AA patterns (skip link, focus states, 44px+ tap targets, reduced motion, labelled forms) · dark mode · structured data (schema.org `MedicalBusiness`) · Open Graph share image · favicon, touch icon and web manifest · `sitemap.xml` and `robots.txt` (admin excluded) · custom 404 · Content Security Policy · cookie notice (essential storage only) · WhatsApp click-to-chat · enquiry form saved to the database with consent recorded against the Privacy Notice version · spam honeypot and rate limit · print-friendly legal pages.
 
 ## Before launch
 See the launch checklist on the admin **Overview** page. In short:
@@ -40,4 +45,4 @@ See the launch checklist on the admin **Overview** page. In short:
 2. Counsel review of the 7 legal drafts, then approve and publish them (admin → Legal documents). The **Privacy Notice must be live before the site is promoted.**
 3. Register with Ghana's Data Protection Commission.
 4. Written approval from Parents Nest International School to feature them as a client.
-5. Turn off the draft banner (admin → Site content → Footer & legal).
+5. Staff can preview the site with unconfirmed items highlighted using **Preview website** in the staff area (adds `?review=1`). Visitors never see the highlighting.

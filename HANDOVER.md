@@ -21,7 +21,7 @@ Most day-to-day work is done in the **staff area**, not in code.
 - Go to **Site content**. Each field shows what it is, an example, and whether it is **Still a placeholder**.
 - Type the confirmed value. The placeholder tick clears automatically. Click **Save changes**. The website updates immediately.
 - Only enter content Sarah has confirmed. Real numbers only for impact figures. Testimonials need written consent.
-- When everything is confirmed, set **Show "draft" banner** to `no`.
+- Use **Preview website** (top of Site content) to see the site with unconfirmed items highlighted in yellow stripes. Visitors never see the stripes.
 
 ## 4. Legal documents
 - 7 policies are loaded as **v0.1 drafts for counsel review**. Each contains `[COUNSEL NOTE: …]` items and `[placeholders]`.
@@ -44,5 +44,5 @@ Most day-to-day work is done in the **staff area**, not in code.
 ## 7. Checklist before telling Frank something is done
 - [ ] Content confirmed by Sarah
 - [ ] Checked on a phone and on a computer
-- [ ] No placeholder stripes left on the item you changed
+- [ ] No yellow stripes left on the item you changed (check with Preview website)
 - [ ] Enquiry statuses up to date
