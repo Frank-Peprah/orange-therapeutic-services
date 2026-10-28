@@ -1,268 +1,45 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GH">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Orange Therapeutic Services</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Therapy and inclusion consultancy for children with disabilities and learning differences in Ghana — for families and institutions.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
-<style>
-img{max-width:100%}[hidden]{display:none!important}body{margin:0}
-/* Layout: two-door site (Families / Institutions) — a calm, legible base with one bold orange "segment" motif */
-:root{
-  --bg:#F7F8F5; --surface:#FFFFFF; --sunk:#EEF2EC;
-  --ink:#17323A; --muted:#4F6369; --line:#D8DFD8;
-  --orange:#E8650F; --orange-ink:#B54A05; --orange-soft:#FDE8D8;
-  --sun:#F8B931; --teal:#1F6B6B; --teal-soft:#DCEDEA;
-  --on-orange:#FFFFFF;
-  --f-display:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
-  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
-  --r:14px; --max:1180px;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0F1D21; --surface:#152A30; --sunk:#12252A;
-  --ink:#EAF1EE; --muted:#A6B8B6; --line:#28434A;
-  --orange:#FF8436; --orange-ink:#FFA066; --orange-soft:#3A2414;
-  --sun:#F8C452; --teal:#6FC2BC; --teal-soft:#1B3B3D; --on-orange:#1A0E05;
-  color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0F1D21; --surface:#152A30; --sunk:#12252A;
-  --ink:#EAF1EE; --muted:#A6B8B6; --line:#28434A;
-  --orange:#FF8436; --orange-ink:#FFA066; --orange-soft:#3A2414;
-  --sun:#F8C452; --teal:#6FC2BC; --teal-soft:#1B3B3D; --on-orange:#1A0E05;
-  color-scheme:dark}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--surface)}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:6px}
-h1,h2,h3{font-family:var(--f-display);line-height:1.08;text-wrap:balance;margin:0;letter-spacing:-.01em}
-h2{font-size:clamp(1.8rem,1.2rem + 2.4vw,2.8rem);font-weight:800}
-h3{font-size:1.25rem;font-weight:700}
-p{margin:0}
-.wrap{max-width:var(--max);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.band{padding-block:clamp(56px,8vw,104px)}
-.eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-ink)}
-.lede{color:var(--muted);font-size:1.125rem;max-width:62ch}
-.sec-head{display:grid;gap:12px;margin-bottom:40px;max-width:760px}
-.skip{position:absolute;left:-999px;top:8px;background:var(--surface);padding:8px 14px;z-index:99}
-.skip:focus{left:16px}
-/* placeholder marker: anything Orange must confirm */
-.ph{background:repeating-linear-gradient(135deg,transparent 0 6px,color-mix(in srgb,var(--sun) 30%,transparent) 6px 12px);border-bottom:2px dashed var(--sun);padding:0 3px;border-radius:3px}
-
-/* Buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;font:700 1rem var(--f-body);text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .15s,background .15s}
-.btn:hover{transform:translateY(-1px)}
-.btn-primary{background:var(--orange);color:var(--on-orange)}
-.btn-primary:hover{background:var(--orange-ink)}
-.btn-ghost{border-color:var(--ink);color:var(--ink);background:transparent}
-.btn-ghost:hover{background:var(--sunk)}
-
-/* Draft banner */
-.draft{background:var(--sun);color:#2A1E00;font-size:.88rem;text-align:center;padding-block:8px}
-
-/* Header */
-header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--surface);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-weight:800;font-size:1.15rem;line-height:1.05}
-.brand small{display:block;font-family:var(--f-body);font-weight:400;font-size:.72rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
-.links{display:flex;align-items:center;gap:22px}
-.links a{text-decoration:none;font-weight:700;font-size:.95rem}
-.links a:not(.btn):hover{color:var(--orange-ink)}
-.menu-btn{display:none;background:none;border:2px solid var(--line);border-radius:10px;width:48px;height:48px;color:var(--ink);cursor:pointer}
-@media (max-width:920px){
-  .menu-btn{display:inline-grid;place-items:center}
-  .links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--surface);border-bottom:1px solid var(--line);padding:8px max(16px,env(safe-area-inset-right,0px)) 18px max(16px,env(safe-area-inset-left,0px))}
-  .links[data-open="false"]{display:none}
-  .links a{padding:14px 4px;border-bottom:1px solid var(--line)}
-  .links .btn{margin-top:14px;border-bottom:0}
-}
-
-/* Hero */
-.hero{padding-block:clamp(40px,6vw,80px);overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
-.switch{display:inline-flex;background:var(--sunk);border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:24px}
-.switch button{border:0;background:transparent;color:var(--ink);font:700 .95rem var(--f-body);padding:10px 18px;border-radius:999px;cursor:pointer;min-height:44px}
-.switch button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-.hero h1{font-size:clamp(2.4rem,1.4rem + 4.6vw,4.4rem);font-weight:800;margin-bottom:20px}
-.hero h1 em{font-style:normal;color:var(--orange)}
-.hero .lede{margin-bottom:28px}
-.cta-row{display:flex;flex-wrap:wrap;gap:12px}
-.hero-note{margin-top:22px;font-size:.92rem;color:var(--muted)}
-.orange-mark{width:100%;max-width:420px;justify-self:center;aspect-ratio:1}
-.orange-mark .seg{transform-origin:200px 200px;animation:settle .9s cubic-bezier(.2,.8,.2,1) both}
-@keyframes settle{from{transform:rotate(-14deg) scale(.96)}to{transform:none}}
-@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.orange-mark{max-width:240px;order:-1}}
-
-/* Doors */
-.doors{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.door{border-radius:var(--r);padding:32px;display:grid;gap:14px;align-content:start}
-.door.fam{background:var(--orange-soft)}
-.door.inst{background:var(--teal-soft)}
-.door ul{margin:0;padding-left:20px;display:grid;gap:4px}
-.door .btn{justify-self:start;margin-top:6px}
-.door.inst .btn{background:var(--teal);color:var(--bg)}
-@media (max-width:760px){.doors{grid-template-columns:1fr}.door{padding:24px}}
-
-/* Concerns */
-.concerns{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.concern{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:8px;align-content:start}
-.concern .tag{font-size:.78rem;color:var(--muted);letter-spacing:.04em}
-.concern p{color:var(--muted);font-size:.96rem}
-@media (max-width:980px){.concerns{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:480px){.concerns{grid-template-columns:1fr}}
-
-/* Services */
-.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.svc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px;display:grid;gap:12px;align-content:start}
-.svc h3{font-size:1.45rem}
-.svc p{color:var(--muted)}
-.svc ul{margin:0;padding-left:20px;display:grid;gap:4px;font-size:.97rem}
-.svc-for{font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-ink)}
-.svc-wide{grid-column:1/-1;background:var(--teal-soft);border-color:transparent}
-.svc-wide .svc-for{color:var(--teal)}
-.svc-wide .btn{justify-self:start;background:var(--teal);color:var(--bg)}
-@media (max-width:760px){.svc-grid{grid-template-columns:1fr}.svc{padding:22px}}
-/* Client case */
-.client{margin-top:36px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px}
-.client-mark{width:72px;height:72px;border-radius:18px;background:var(--teal);color:var(--bg);display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:1.5rem}
-.client-body{display:grid;gap:10px;min-width:0}
-.client-body p{color:var(--muted);max-width:70ch}
-@media (max-width:560px){.client{grid-template-columns:1fr;padding:22px}.client-mark{width:56px;height:56px;font-size:1.2rem}}
-
-/* Steps */
-.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s}
-.step{padding:0 20px 0 0;display:grid;gap:10px;position:relative}
-.step::before{counter-increment:s;content:counter(s);font-family:var(--f-display);font-weight:800;font-size:1.1rem;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--orange);color:var(--on-orange)}
-.step::after{content:"";position:absolute;top:22px;left:52px;right:8px;height:2px;background:var(--line)}
-.step:last-child::after{display:none}
-.step p{color:var(--muted);font-size:.97rem}
-@media (max-width:860px){.steps{grid-template-columns:1fr 1fr;row-gap:32px}.step::after{display:none}}
-@media (max-width:480px){.steps{grid-template-columns:1fr}}
-
-/* Fees + term rail */
-.sunk{background:var(--sunk)}
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.plan{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px;display:grid;gap:14px;align-content:start}
-.plan.feature{border:2px solid var(--orange)}
-.plan .who{font-size:.85rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.price{font-family:var(--f-display);font-weight:800;font-size:2rem}
-.price small{font-family:var(--f-body);font-size:.9rem;font-weight:400;color:var(--muted)}
-.plan ul{margin:0;padding-left:20px;display:grid;gap:4px;font-size:.97rem}
-.badge{justify-self:start;background:var(--orange);color:var(--on-orange);font-size:.78rem;font-weight:700;padding:4px 10px;border-radius:999px}
-@media (max-width:900px){.plans{grid-template-columns:1fr}}
-.terms{margin-top:40px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px}
-.terms h3{margin-bottom:4px}
-.terms > p{color:var(--muted);font-size:.95rem;margin-bottom:18px}
-.rail{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.term{border-top:6px solid var(--teal);padding-top:12px;display:grid;gap:2px}
-.term:nth-child(2){border-color:var(--orange)}
-.term:nth-child(3){border-color:var(--sun)}
-.term b{font-family:var(--f-display);font-size:1.1rem}
-.term span{color:var(--muted);font-size:.92rem}
-@media (max-width:560px){.rail{grid-template-columns:1fr}}
-
-/* Institutions */
-.inst-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.offer{border-left:4px solid var(--teal);padding:4px 0 4px 20px;display:grid;gap:8px}
-.offer p{color:var(--muted)}
-.offer .for{font-size:.85rem;font-weight:700;color:var(--teal)}
-.inst-cta{margin-top:36px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;background:var(--ink);color:var(--bg);border-radius:var(--r);padding:28px}
-.inst-cta p{max-width:52ch}
-.inst-cta .btn{background:var(--sun);color:#2A1E00}
-@media (max-width:760px){.inst-grid{grid-template-columns:1fr}}
-
-/* Proof */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
-.stat{border-top:2px solid var(--ink);padding-top:12px}
-.stat b{display:block;font-family:var(--f-display);font-size:2rem;font-weight:800;font-variant-numeric:tabular-nums}
-.stat span{color:var(--muted);font-size:.93rem}
-@media (max-width:760px){.stats{grid-template-columns:1fr 1fr}}
-.stories{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.story{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:24px;display:grid;gap:10px}
-.story blockquote{margin:0;font-size:1.1rem}
-.story cite{font-style:normal;color:var(--muted);font-size:.92rem}
-@media (max-width:760px){.stories{grid-template-columns:1fr}}
-
-/* Team */
-.team{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:center}
-.portrait{aspect-ratio:4/5;max-width:100%;border-radius:var(--r);background:linear-gradient(160deg,var(--orange-soft),var(--teal-soft));display:grid;place-items:center;color:var(--muted);font-size:.9rem;text-align:center;padding:20px}
-.team h3{font-size:1.6rem}
-.creds{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
-.creds span{background:var(--sunk);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.88rem}
-@media (max-width:760px){.team{grid-template-columns:1fr}.portrait{max-width:320px}}
-
-/* Resources */
-.res{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center;background:var(--orange-soft);border-radius:var(--r);padding:clamp(24px,4vw,44px)}
-.res ul{margin:14px 0 0;padding-left:20px}
-.inline-form{display:flex;flex-wrap:wrap;gap:10px}
-.inline-form input{flex:1 1 220px;min-width:0}
-@media (max-width:760px){.res{grid-template-columns:1fr}}
-
-/* FAQ */
-.faq{display:grid;gap:10px;max-width:820px}
-.faq details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 20px}
-.faq summary{cursor:pointer;font-weight:700;padding:18px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
-.faq summary::after{content:"+";font-family:var(--f-display);font-size:1.4rem;line-height:1;color:var(--orange-ink)}
-.faq details[open] summary::after{content:"–"}
-.faq details p{padding-bottom:18px;color:var(--muted)}
-
-/* Contact */
-.contact{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;align-items:start}
-.channels{display:grid;gap:14px}
-.channel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.channel b{display:block;font-size:.85rem;color:var(--muted);font-weight:700}
-.copy{border:1px solid var(--line);background:var(--sunk);color:var(--ink);border-radius:8px;padding:8px 12px;font:700 .85rem var(--f-body);cursor:pointer;min-height:40px}
-form.enquiry{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(20px,3vw,32px);display:grid;gap:16px}
-.field{display:grid;gap:6px}
-.field label{font-weight:700;font-size:.95rem}
-.field .hint{font-size:.85rem;color:var(--muted)}
-input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;min-height:48px;width:100%}
-input:focus,select:focus,textarea:focus{border-color:var(--orange);outline:none;box-shadow:0 0 0 3px var(--orange-soft)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media (max-width:560px){.two{grid-template-columns:1fr}}
-.seg-ctl{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.seg-ctl label{border:1.5px solid var(--line);border-radius:10px;padding:12px;text-align:center;cursor:pointer;font-weight:700;min-height:48px;display:grid;place-items:center}
-.seg-ctl input{position:absolute;opacity:0;width:1px;height:1px}
-.seg-ctl input:checked + span{color:var(--orange-ink)}
-.seg-ctl label:has(input:checked){border-color:var(--orange);background:var(--orange-soft)}
-.seg-ctl label:has(input:focus-visible){outline:3px solid var(--orange);outline-offset:2px}
-.consent{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;color:var(--muted)}
-.consent input{width:22px;height:22px;min-height:0;flex:none;margin-top:2px;accent-color:var(--orange)}
-.error{color:var(--orange-ink);font-size:.9rem;font-weight:700}
-.result{background:var(--teal-soft);border-radius:12px;padding:18px;display:grid;gap:10px}
-.result pre{white-space:pre-wrap;margin:0;font:inherit;font-size:.93rem;background:var(--surface);border-radius:8px;padding:12px}
-@media (max-width:860px){.contact{grid-template-columns:1fr}}
-
-/* Footer */
-footer{background:var(--ink);color:var(--bg);padding-block:48px 32px;font-size:.93rem}
-.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
-.foot h4{font-family:var(--f-display);margin:0 0 10px;font-size:1rem}
-.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.foot a{text-decoration:none;opacity:.85}
-.foot a:hover{opacity:1;text-decoration:underline}
-.legal{margin-top:36px;padding-top:20px;border-top:1px solid color-mix(in srgb,var(--bg) 25%,transparent);opacity:.75;font-size:.85rem;display:grid;gap:6px}
-@media (max-width:760px){.foot{grid-template-columns:1fr}}
-</style>
+<title>Orange Therapeutic Services | Child therapy &amp; inclusion consultancy, Accra</title>
+<meta name="description" content="Behaviour therapy, psychological services, special education, occupational therapy and teacher training for children with disabilities and learning differences in Ghana. For families and institutions.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://vekihiypdosshilpjaie.supabase.co; form-action 'self'; base-uri 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#E8650F">
+<link rel="canonical" href="https://frank-peprah.github.io/orange-therapeutic-services/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Orange Therapeutic Services">
+<meta property="og:title" content="Orange Therapeutic Services: every child can grow">
+<meta property="og:description" content="Therapy and inclusion consultancy for children with disabilities and learning differences in Ghana, for families, schools and organisations.">
+<meta property="og:url" content="https://frank-peprah.github.io/orange-therapeutic-services/">
+<meta property="og:image" content="https://frank-peprah.github.io/orange-therapeutic-services/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_GH">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script type="application/ld+json" id="ld">
+{"@context":"https://schema.org","@type":"MedicalBusiness","name":"Orange Therapeutic Services","url":"https://frank-peprah.github.io/orange-therapeutic-services/","logo":"https://frank-peprah.github.io/orange-therapeutic-services/assets/apple-touch-icon.png","image":"https://frank-peprah.github.io/orange-therapeutic-services/assets/og-image.png","description":"Behaviour therapy, psychological services, special education, occupational therapy and teacher training for children with disabilities and learning differences.","founder":{"@type":"Person","name":"Sarah Adu-Peprah"},"areaServed":[{"@type":"City","name":"Accra"},{"@type":"City","name":"Tema"}],"address":{"@type":"PostalAddress","addressLocality":"Accra","addressCountry":"GH"},"knowsAbout":["Behaviour therapy","Psychological assessment","Special education","Occupational therapy","Teacher training","Autism","ADHD","Learning differences"],"currenciesAccepted":"GHS"}
+</script>
 </head>
 <body>
-
-
 <a class="skip" href="#main">Skip to content</a>
-<div class="draft"><div class="wrap">Draft v1 for review · striped items are placeholders for Orange to confirm</div></div>
+<div class="draft" id="draftBanner"><div class="wrap">Preview: highlighted items are being confirmed and will be finalised before launch.</div></div>
 
 <header class="site">
   <div class="wrap nav">
-    <a class="brand" href="#top" aria-label="Orange Therapeutic Services home">
+    <a class="brand" href="./" aria-label="Orange Therapeutic Services home">
       <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="var(--orange)"/><g stroke="var(--surface)" stroke-width="2"><line x1="20" y1="4" x2="20" y2="36"/><line x1="6" y1="12" x2="34" y2="28"/><line x1="6" y1="28" x2="34" y2="12"/></g><circle cx="20" cy="20" r="4" fill="var(--sun)"/></svg>
       <span>Orange Therapeutic<small>Services · Ghana</small></span>
     </a>
-    <button class="menu-btn" id="menuBtn" aria-controls="navLinks" aria-expanded="false" aria-label="Open menu">
+    <button class="menu-btn" id="menuBtn" type="button" aria-controls="navLinks" aria-expanded="false" aria-label="Open menu">
       <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
     </button>
     <nav class="links" id="navLinks" data-open="false" aria-label="Main">
@@ -272,26 +49,26 @@ footer{background:var(--ink);color:var(--bg);padding-block:48px 32px;font-size:.
       <a href="#fees">Fees &amp; terms</a>
       <a href="#team">Our team</a>
       <a href="#faq">FAQ</a>
-      <a class="btn btn-primary" href="#contact" data-cta>Book an assessment</a>
+      <a class="btn btn-primary" href="#contact" data-pick="family">Book an assessment</a>
     </nav>
   </div>
 </header>
 
 <main id="main">
-<section class="hero" id="top">
+<section class="hero" aria-labelledby="heroTitle">
   <div class="wrap hero-grid">
     <div>
       <div class="switch" role="group" aria-label="I am">
-        <button type="button" id="aud-fam" aria-pressed="true" data-aud="fam">I'm a parent or carer</button>
-        <button type="button" id="aud-inst" aria-pressed="false" data-aud="inst">I represent an organisation</button>
+        <button type="button" aria-pressed="true" data-aud="fam">I'm a parent or carer</button>
+        <button type="button" aria-pressed="false" data-aud="inst">I represent an organisation</button>
       </div>
       <h1 id="heroTitle">Every child can grow. <em>We help you see how.</em></h1>
       <p class="lede" id="heroLede">Behaviour therapy, psychological services, special education and occupational therapy for children with autism, ADHD, learning differences and other developmental needs. Each child gets a clear plan, sessions that fit the school term, and a progress review at the end of every term.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#contact" id="heroPrimary">Book an assessment</a>
+        <a class="btn btn-primary" href="#contact" id="heroPrimary" data-pick="family">Book an assessment</a>
         <a class="btn btn-ghost" href="#how" id="heroSecondary">See how it works</a>
       </div>
-      <p class="hero-note" id="heroNote">Serving families in <span class="ph">Accra and Tema</span> · Sessions in person and online</p>
+      <p class="hero-note">Serving families in <span class="ph" data-cms="service_area">Accra and Tema</span> · Sessions in person and online</p>
     </div>
     <svg class="orange-mark" viewBox="0 0 400 400" role="img" aria-label="A stylised orange cut into segments">
       <circle cx="200" cy="200" r="190" fill="var(--orange-soft)"/>
@@ -311,11 +88,11 @@ footer{background:var(--ink);color:var(--bg);padding-block:48px 32px;font-size:.
   </div>
 </section>
 
-<section class="band" style="padding-top:0">
+<section class="band flush-top" aria-label="Who we help">
   <div class="wrap doors">
     <article class="door fam" id="families">
       <span class="eyebrow">For families</span>
-      <h3>Support for your child, at home and at school</h3>
+      <h2 style="font-size:1.4rem">Support for your child, at home and at school</h2>
       <ul>
         <li>An assessment that tells you where your child is today</li>
         <li>A personal plan with goals you can follow at home</li>
@@ -324,23 +101,23 @@ footer{background:var(--ink);color:var(--bg);padding-block:48px 32px;font-size:.
       <a class="btn btn-primary" href="#contact" data-pick="family">Book an assessment</a>
     </article>
     <article class="door inst">
-      <span class="eyebrow" style="color:var(--teal)">For schools &amp; organisations</span>
-      <h3>Build inclusion your staff can sustain</h3>
+      <span class="eyebrow teal">For schools &amp; organisations</span>
+      <h2 style="font-size:1.4rem">Build inclusion your staff can sustain</h2>
       <ul>
         <li>Teacher and caregiver training</li>
         <li>Inclusion audits with a practical action plan</li>
         <li>Psychological and behaviour specialists on call for schools, NGOs and employers</li>
       </ul>
-      <a class="btn" href="#contact" data-pick="institution">Request a proposal</a>
+      <a class="btn btn-teal" href="#contact" data-pick="institution">Request a proposal</a>
     </article>
   </div>
 </section>
 
-<section class="band sunk" id="concerns">
+<section class="band sunk" id="concerns" aria-labelledby="concernsTitle">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">What we support</span>
-      <h2>Start with what you're noticing</h2>
+      <h2 id="concernsTitle">Start with what you're noticing</h2>
       <p class="lede">You don't need a diagnosis to contact us. If something about your child's development, learning or behaviour worries you, an assessment is the right first step.</p>
     </div>
     <div class="concerns">
@@ -356,11 +133,11 @@ footer{background:var(--ink);color:var(--bg);padding-block:48px 32px;font-size:.
   </div>
 </section>
 
-<section class="band" id="services">
+<section class="band" id="services" aria-labelledby="servicesTitle">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">Our services</span>
-      <h2>Five services, one plan for your child</h2>
+      <h2 id="servicesTitle">Five services, one plan for your child</h2>
       <p class="lede">After the assessment we recommend the mix of services your child needs. Our specialists work together, so you deal with one team and one plan.</p>
     </div>
     <div class="svc-grid">
@@ -393,20 +170,20 @@ footer{background:var(--ink);color:var(--bg);padding-block:48px 32px;font-size:.
         <h3>Training for teachers</h3>
         <p>Practical training that equips teachers and caregivers to recognise additional needs early and support children well in mainstream classrooms.</p>
         <ul><li>Recognising signs of autism, ADHD and learning differences</li><li>Classroom and behaviour strategies</li><li>Whole-staff workshops or termly programmes</li></ul>
-        <a class="btn" href="#contact" data-pick="institution">Request a training proposal</a>
+        <a class="btn btn-teal" href="#contact" data-pick="institution">Request a training proposal</a>
       </article>
     </div>
   </div>
 </section>
 
-<section class="band sunk" id="how">
+<section class="band sunk" id="how" aria-labelledby="howTitle">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">How it works</span>
-      <h2>From first call to measurable progress</h2>
+      <h2 id="howTitle">From first call to measurable progress</h2>
     </div>
     <ol class="steps">
-      <li class="step"><h3>Get in touch</h3><p>Call, send a WhatsApp message or fill in the form. We reply within <span class="ph">one working day</span>.</p></li>
+      <li class="step"><h3>Get in touch</h3><p>Call, send a WhatsApp message or fill in the form. We reply within <span class="ph" data-cms="reply_time">one working day</span>.</p></li>
       <li class="step"><h3>Assessment</h3><p>We meet your child, talk with you, and where helpful observe them at school.</p></li>
       <li class="step"><h3>Personal plan</h3><p>Clear goals, the therapies we recommend, and what you can practise at home.</p></li>
       <li class="step"><h3>Sessions &amp; reviews</h3><p>Regular sessions, plus a written progress report at the end of every term.</p></li>
@@ -414,18 +191,18 @@ footer{background:var(--ink);color:var(--bg);padding-block:48px 32px;font-size:.
   </div>
 </section>
 
-<section class="band" id="fees">
+<section class="band" id="fees" aria-labelledby="feesTitle">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">Fees &amp; terms</span>
-      <h2>Clear prices, planned around the school year</h2>
+      <h2 id="feesTitle">Clear prices, planned around the school year</h2>
       <p class="lede">Choose single sessions or a full term. Term packages follow the Ghanaian school calendar, so therapy runs alongside your child's schooling.</p>
     </div>
     <div class="plans">
       <div class="plan">
         <span class="who">Families</span>
         <h3>Per session</h3>
-        <div class="price"><span class="ph">GH₵ —</span> <small>per session</small></div>
+        <div class="price"><span class="ph" data-cms="fee_session">GH₵ —</span> <small>per session</small></div>
         <ul><li>Book as you need</li><li>Good for trying therapy or occasional support</li><li>Session notes after each visit</li></ul>
         <a class="btn btn-ghost" href="#contact" data-pick="family">Enquire</a>
       </div>
@@ -433,7 +210,7 @@ footer{background:var(--ink);color:var(--bg);padding-block:48px 32px;font-size:.
         <span class="badge">Most families choose this</span>
         <span class="who">Families</span>
         <h3>Term package</h3>
-        <div class="price"><span class="ph">GH₵ —</span> <small>per term</small></div>
+        <div class="price"><span class="ph" data-cms="fee_term">GH₵ —</span> <small>per term</small></div>
         <ul><li>A fixed weekly schedule for the whole term</li><li>End-of-term progress report and review meeting</li><li>Lower cost per session than booking singly</li></ul>
         <a class="btn btn-primary" href="#contact" data-pick="family">Reserve a term place</a>
       </div>
@@ -449,19 +226,19 @@ footer{background:var(--ink);color:var(--bg);padding-block:48px 32px;font-size:.
       <h3>Term calendar</h3>
       <p>Term places are limited. Enrol before the term starts to secure a weekly slot.</p>
       <div class="rail">
-        <div class="term"><b>First term</b><span class="ph">September – December</span></div>
-        <div class="term"><b>Second term</b><span class="ph">January – April</span></div>
-        <div class="term"><b>Third term</b><span class="ph">May – July</span></div>
+        <div class="term"><b>First term</b><span class="ph" data-cms="term1">September – December</span></div>
+        <div class="term"><b>Second term</b><span class="ph" data-cms="term2">January – April</span></div>
+        <div class="term"><b>Third term</b><span class="ph" data-cms="term3">May – July</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="band sunk" id="institutions">
+<section class="band sunk" id="institutions" aria-labelledby="instTitle">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow" style="color:var(--teal)">For institutions</span>
-      <h2>Specialist expertise for schools, NGOs, employers and government</h2>
+      <span class="eyebrow teal">For institutions</span>
+      <h2 id="instTitle">Specialist expertise for schools, NGOs, employers and government</h2>
       <p class="lede">Most children with additional needs spend their day in mainstream settings. We help those settings include them well.</p>
     </div>
     <div class="inst-grid">
@@ -475,242 +252,178 @@ footer{background:var(--ink);color:var(--bg);padding-block:48px 32px;font-size:.
       <div class="client-body">
         <span class="svc-for" style="color:var(--teal)">Institutional client</span>
         <h3>Parents Nest International School</h3>
-        <p>A specialised school for children with neurodevelopmental, behavioural, trauma-related and learning differences. Orange Therapeutic Services provides <span class="ph">therapy, behaviour support and teacher training</span> to the school's pupils and staff.</p>
-        <div class="creds" style="margin:4px 0 0"><span class="ph">Partner since 20—</span><span class="ph">— pupils supported</span><span class="ph">— staff trained</span></div>
+        <p>A specialised school for children with neurodevelopmental, behavioural, trauma-related and learning differences. Orange Therapeutic Services provides <span class="ph" data-cms="pn_services">therapy, behaviour support and teacher training</span> to the school's pupils and staff.</p>
+        <div class="chips"><span class="ph" data-cms="pn_since">Partner since 20—</span><span class="ph" data-cms="pn_pupils">— pupils supported</span><span class="ph" data-cms="pn_staff">— staff trained</span></div>
       </div>
     </div>
-
     <div class="inst-cta">
-      <p><strong>Tell us what you need.</strong> We'll reply with a scoped proposal, timeline and fee within <span class="ph">five working days</span>.</p>
-      <a class="btn" href="#contact" data-pick="institution">Request a proposal</a>
+      <p><strong>Tell us what you need.</strong> We'll reply with a scoped proposal, timeline and fee within <span class="ph" data-cms="proposal_turnaround">five working days</span>.</p>
+      <a class="btn btn-sun" href="#contact" data-pick="institution">Request a proposal</a>
     </div>
   </div>
 </section>
 
-<section class="band" id="impact">
+<section class="band" id="impact" aria-labelledby="impactTitle">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">Impact</span>
-      <h2>Progress families and schools can see</h2>
+      <h2 id="impactTitle">Progress families and schools can see</h2>
     </div>
     <div class="stats">
-      <div class="stat"><b class="ph">—</b><span>children supported</span></div>
-      <div class="stat"><b class="ph">—</b><span>teachers trained</span></div>
-      <div class="stat"><b class="ph">—</b><span>partner schools</span></div>
-      <div class="stat"><b class="ph">—</b><span>years of practice</span></div>
+      <div class="stat"><b class="ph" data-cms="stat_children">—</b><span>children supported</span></div>
+      <div class="stat"><b class="ph" data-cms="stat_teachers">—</b><span>teachers trained</span></div>
+      <div class="stat"><b class="ph" data-cms="stat_schools">—</b><span>partner schools</span></div>
+      <div class="stat"><b class="ph" data-cms="stat_years">—</b><span>years of practice</span></div>
     </div>
     <div class="stories">
-      <figure class="story"><blockquote class="ph">A parent's story, shared with written consent, goes here.</blockquote><cite>Parent of a child aged <span class="ph">—</span>, first name only</cite></figure>
-      <figure class="story"><blockquote class="ph">A head teacher's or programme lead's testimonial goes here.</blockquote><cite>Name, role, institution</cite></figure>
+      <figure class="story"><blockquote class="ph" data-cms="testimonial_parent">A parent's story, shared with written consent, goes here.</blockquote><figcaption class="ph" data-cms="testimonial_parent_cite">Parent of a child aged —, first name only</figcaption></figure>
+      <figure class="story"><blockquote class="ph" data-cms="testimonial_inst">A head teacher's or programme lead's testimonial goes here.</blockquote><figcaption class="ph" data-cms="testimonial_inst_cite">Name, role, institution</figcaption></figure>
     </div>
   </div>
 </section>
 
-<section class="band" id="team">
+<section class="band sunk" id="team" aria-labelledby="teamTitle">
   <div class="wrap team">
-    <div class="portrait">Portrait of Sarah Adu-Peprah<br>(photo to be supplied)</div>
+    <div class="portrait" id="portrait">Portrait of Sarah Adu-Peprah<br>(photo to be supplied)</div>
     <div>
       <span class="eyebrow">Founder</span>
-      <h3>Sarah Adu-Peprah</h3>
-      <p style="color:var(--muted)">Founder and owner, Orange Therapeutic Services</p>
-      <div class="creds"><span class="ph">Qualification</span><span class="ph">Professional registration</span><span class="ph">Years of practice</span></div>
-      <p class="lede"><span class="ph">Sarah founded Orange Therapeutic Services to give children with disabilities and learning differences in Ghana access to structured, evidence-based support. A short biography in her own words goes here.</span></p>
-      <p style="margin-top:16px;color:var(--muted)">Therapist profiles and the wider team will be listed here.</p>
+      <h2 id="teamTitle" style="font-size:1.8rem;margin-top:6px">Sarah Adu-Peprah</h2>
+      <p class="muted">Founder and owner, Orange Therapeutic Services</p>
+      <div class="chips"><span class="ph" data-cms="founder_qualification">Qualification</span><span class="ph" data-cms="founder_registration">Professional registration</span><span class="ph" data-cms="founder_years">Years of practice</span></div>
+      <p class="lede ph" data-cms="founder_bio">Sarah founded Orange Therapeutic Services to give children with disabilities and learning differences in Ghana access to structured, evidence-based support. A short biography in her own words goes here.</p>
+      <p class="muted" style="margin-top:16px">Therapist profiles and the wider team will be listed here.</p>
     </div>
   </div>
 </section>
 
-<section class="band" style="padding-top:0">
+<section class="band" aria-labelledby="resTitle">
   <div class="wrap">
     <div class="res">
       <div>
         <span class="eyebrow">Free resource</span>
-        <h2 style="margin-top:8px">Is my child on track? A parent's checklist</h2>
+        <h2 id="resTitle" style="margin-top:8px">Is my child on track? A parent's checklist</h2>
         <ul><li>Developmental signs to watch, by age group</li><li>When to seek an assessment</li><li>Questions to ask your child's teacher</li></ul>
       </div>
-      <form class="inline-form" id="resForm" name="checklist" method="POST" data-netlify="true" novalidate>
-        <input type="hidden" name="form-name" value="checklist">
+      <form class="inline-form" id="resForm" novalidate>
         <label for="resEmail" style="flex-basis:100%;font-weight:700">Email me the checklist</label>
-        <input id="resEmail" name="email" type="email" placeholder="you@example.com" autocomplete="email">
+        <input id="resEmail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
         <button class="btn btn-primary" type="submit">Send it</button>
-        <p class="hint" id="resMsg" role="status" style="flex-basis:100%;font-size:.9rem;color:var(--muted)">We'll only email you about this resource.</p>
+        <p class="hint" id="resMsg" role="status" style="flex-basis:100%">We'll only email you about this resource. See our <a href="legal.html#privacy-notice">Privacy Notice</a>.</p>
       </form>
     </div>
   </div>
 </section>
 
-<section class="band sunk" id="faq">
+<section class="band sunk" id="faq" aria-labelledby="faqTitle">
   <div class="wrap">
-    <div class="sec-head"><span class="eyebrow">Questions</span><h2>Frequently asked</h2></div>
+    <div class="sec-head"><span class="eyebrow">Questions</span><h2 id="faqTitle">Frequently asked</h2></div>
     <div class="faq">
       <details><summary>Does my child need a diagnosis first?</summary><p>No. Many families come to us with a concern rather than a diagnosis. The assessment helps clarify your child's needs and the next steps.</p></details>
-      <details><summary>What ages do you work with?</summary><p>We work with children aged <span class="ph">— to —</span>. Contact us if you're unsure whether we can help.</p></details>
+      <details><summary>What ages do you work with?</summary><p>We work with children aged <span class="ph" data-cms="age_range">— to —</span>. Contact us if you're unsure whether we can help.</p></details>
       <details><summary>Do you offer sessions online?</summary><p>Yes, for some therapies and for parent coaching. Your assessment will show whether online sessions suit your child.</p></details>
       <details><summary>How do term packages work?</summary><p>You reserve a fixed weekly slot for the whole school term. At the end of the term you receive a written progress report and meet with us to plan the next term.</p></details>
       <details><summary>Can you work with my child's school?</summary><p>Yes. With your permission we can observe your child at school and share strategies with their teachers so support is consistent.</p></details>
-      <details><summary>How do you protect my child's information?</summary><p>We collect only what we need to support your child, store it securely, and never share it without your written consent, in line with Ghana's Data Protection Act, 2012 (Act 843).</p></details>
+      <details><summary>How do you protect my child's information?</summary><p>We collect only what we need, store it securely, and never share it without your written consent, except where a child's safety requires it. Read our <a href="legal.html#privacy-notice">Privacy Notice</a> and <a href="legal.html#safeguarding-policy">Safeguarding Statement</a>.</p></details>
+      <details><summary>Is this an emergency service?</summary><p>No. If a child is in danger or there is a medical emergency, call 112 or go to the nearest hospital emergency department.</p></details>
     </div>
   </div>
 </section>
 
-<section class="band" id="contact">
+<section class="band" id="contact" aria-labelledby="contactTitle">
   <div class="wrap contact">
     <div>
       <div class="sec-head" style="margin-bottom:24px">
         <span class="eyebrow">Contact</span>
-        <h2>Let's talk about what you need</h2>
+        <h2 id="contactTitle">Let's talk about what you need</h2>
         <p class="lede">Choose the channel that suits you.</p>
       </div>
       <div class="channels">
-        <div class="channel"><div><b>WhatsApp</b><span class="ph" id="waNum">+233 XX XXX XXXX</span></div><button class="copy" type="button" data-copy="waNum">Copy</button></div>
-        <div class="channel"><div><b>Phone</b><span class="ph" id="telNum">+233 XX XXX XXXX</span></div><button class="copy" type="button" data-copy="telNum">Copy</button></div>
-        <div class="channel"><div><b>Email</b><span class="ph" id="mailAddr">hello@orangetherapy.com.gh</span></div><button class="copy" type="button" data-copy="mailAddr">Copy</button></div>
-        <div class="channel"><div><b>Visit</b><span class="ph">Street address, Accra</span></div></div>
-        <div class="channel"><div><b>Hours</b><span class="ph">Monday to Friday, 8am – 5pm</span></div></div>
+        <div class="channel"><div><b>WhatsApp</b><span class="ph" id="waNum" data-cms="whatsapp">+233 XX XXX XXXX</span></div><a class="btn btn-wa" data-wa href="#contact" hidden>Chat now</a></div>
+        <div class="channel"><div><b>Phone</b><span class="ph" id="telNum" data-cms="phone">+233 XX XXX XXXX</span></div><button class="copy" type="button" data-copy="telNum">Copy</button></div>
+        <div class="channel"><div><b>Email</b><span class="ph" id="mailAddr" data-cms="email">hello@orangetherapy.com.gh</span></div><button class="copy" type="button" data-copy="mailAddr">Copy</button></div>
+        <div class="channel"><div><b>Visit</b><span class="ph" data-cms="address">Street address, Accra</span></div></div>
+        <div class="channel"><div><b>Hours</b><span class="ph" data-cms="hours">Monday to Friday, 8am – 5pm</span></div></div>
       </div>
     </div>
 
-    <form class="enquiry" id="enquiry" name="enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
-      <input type="hidden" name="form-name" value="enquiry">
-      <p hidden><label>Leave this empty <input name="bot-field"></label></p>
+    <form class="enquiry" id="enquiry" novalidate>
       <div class="field">
-        <span style="font-weight:700">I'm enquiring as</span>
-        <div class="seg-ctl">
+        <span class="label" id="typeLabel">I'm enquiring as</span>
+        <div class="seg-ctl" role="radiogroup" aria-labelledby="typeLabel">
           <label><input type="radio" name="type" id="t-family" value="family" checked><span>A parent or carer</span></label>
           <label><input type="radio" name="type" id="t-inst" value="institution"><span>An organisation</span></label>
         </div>
       </div>
       <div class="two">
-        <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required></div>
-        <div class="field"><label for="phone">Phone or WhatsApp</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required></div>
+        <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" maxlength="120" required></div>
+        <div class="field"><label for="phone">Phone or WhatsApp</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" required></div>
       </div>
-
       <div id="famFields" class="two">
-        <div class="field"><label for="age">Child's age</label><input id="age" name="age" inputmode="numeric" placeholder="e.g. 6"></div>
+        <div class="field"><label for="age">Child's age</label><input id="age" name="age" inputmode="numeric" maxlength="20" placeholder="e.g. 6"></div>
         <div class="field"><label for="concern">Main concern</label>
-          <select id="concern" name="concern"><option value="">Choose one</option><option>Autism</option><option>ADHD &amp; focus</option><option>Speech &amp; language</option><option>Learning differences</option><option>Emotional regulation</option><option>Developmental delay</option><option>Sensory processing</option><option>Not sure yet</option></select></div>
-        <div class="field" style="grid-column:1/-1"><label for="service">Service you're interested in</label>
+          <select id="concern" name="concern"><option value="">Choose one</option><option>Autism</option><option>ADHD &amp; focus</option><option>Speech &amp; language</option><option>Learning differences</option><option>Emotional regulation</option><option>Developmental delay</option><option>Sensory processing</option><option>Trauma-related needs</option><option>Not sure yet</option></select></div>
+        <div class="field full"><label for="service">Service you're interested in</label>
           <select id="service" name="service"><option value="">Not sure, please advise</option><option>Behaviour therapy</option><option>Psychological services</option><option>Special education services</option><option>Occupational therapy</option></select></div>
       </div>
-
       <div id="instFields" class="two" hidden>
-        <div class="field"><label for="org">Organisation</label><input id="org" name="org" autocomplete="organization"></div>
+        <div class="field"><label for="org">Organisation</label><input id="org" name="org" autocomplete="organization" maxlength="160"></div>
         <div class="field"><label for="need">What do you need?</label>
           <select id="need" name="need"><option value="">Choose one</option><option>Teacher training</option><option>Inclusion audit</option><option>Programme consultancy</option><option>Parent-employee support</option><option>Something else</option></select></div>
       </div>
-
-      <div class="field"><label for="msg">Anything else we should know?</label><textarea id="msg" name="msg" rows="4"></textarea><span class="hint">Please don't include detailed medical records here. We'll ask for what we need securely.</span></div>
-      <label class="consent"><input type="checkbox" id="consent" name="consent"><span>I agree that Orange Therapeutic Services may use these details to respond to my enquiry, in line with its privacy notice.</span></label>
+      <div class="field"><label for="msg">Anything else we should know?</label><textarea id="msg" name="msg" rows="4" maxlength="2000"></textarea><span class="hint">Please don't include detailed medical records here. We'll ask for what we need securely.</span></div>
+      <div class="hp" aria-hidden="true"><label for="website">Leave this empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+      <label class="consent"><input type="checkbox" id="consent" name="consent"><span>I agree that Orange Therapeutic Services may use these details to respond to my enquiry, as described in the <a href="legal.html#privacy-notice">Privacy Notice</a>.</span></label>
       <p class="error" id="formErr" role="alert" hidden></p>
       <button class="btn btn-primary" type="submit" id="sendBtn">Send enquiry</button>
-      <div class="result" id="result" hidden>
-        <strong>Your enquiry is ready.</strong>
-        <span>Copy it and send it to us on WhatsApp at <span class="ph">+233 XX XXX XXXX</span>. We'll reply within one working day.</span>
-        <pre id="summary"></pre>
-        <button class="copy" type="button" id="copySummary">Copy enquiry</button>
-      </div>
+      <div class="result" id="result" hidden role="status"></div>
     </form>
   </div>
 </section>
 </main>
 
-<footer>
+<footer class="site-foot">
   <div class="wrap">
     <div class="foot">
       <div>
-        <h4>Orange Therapeutic Services</h4>
-        <p style="opacity:.85;max-width:40ch">Therapy and inclusion consultancy for children with disabilities and learning differences, and the schools and organisations that support them.</p>
+        <h2>Orange Therapeutic Services</h2>
+        <p style="opacity:.88;max-width:40ch">Therapy and inclusion consultancy for children with disabilities and learning differences, and the schools and organisations that support them.</p>
       </div>
-      <div><h4>Explore</h4><ul><li><a href="#services">Services</a></li><li><a href="#families">For families</a></li><li><a href="#institutions">For institutions</a></li><li><a href="#fees">Fees &amp; terms</a></li><li><a href="#faq">FAQ</a></li></ul></div>
-      <div><h4>Contact</h4><ul><li class="ph">+233 XX XXX XXXX</li><li class="ph">hello@orangetherapy.com.gh</li><li class="ph">Accra, Ghana</li></ul></div>
+      <div><h2>Explore</h2><ul><li><a href="#services">Services</a></li><li><a href="#families">For families</a></li><li><a href="#institutions">For institutions</a></li><li><a href="#fees">Fees &amp; terms</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div><h2>Policies</h2><ul>
+        <li><a href="legal.html#terms-of-service">Terms of Service</a></li>
+        <li><a href="legal.html#privacy-notice">Privacy Notice</a></li>
+        <li><a href="legal.html#safeguarding-policy">Safeguarding</a></li>
+        <li><a href="legal.html#consent-and-media-policy">Consent &amp; media</a></li>
+        <li><a href="legal.html#accessibility-statement">Accessibility</a></li>
+        <li><a href="legal.html#cookie-policy">Cookie Policy</a></li>
+        <li><button type="button" class="linklike" data-cookie-settings>Cookie settings</button></li>
+      </ul></div>
+      <div><h2>Contact</h2><ul>
+        <li class="ph" data-cms="phone">+233 XX XXX XXXX</li>
+        <li class="ph" data-cms="email">hello@orangetherapy.com.gh</li>
+        <li class="ph" data-cms="city">Accra, Ghana</li>
+        <li><a class="staff-link" href="admin/" rel="nofollow"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5z" fill="none" stroke="currentColor" stroke-width="2"/></svg>Staff access</a></li>
+      </ul></div>
     </div>
-    <div class="legal">
-      <span>© 2026 Orange Therapeutic Services. Founder: Sarah Adu-Peprah.</span>
-      <span>Registration: <span class="ph">Registrar-General no. · Professional licence no.</span> · Privacy notice · Safeguarding policy</span>
-      <span>Information on this site is general guidance and is not a diagnosis. Please contact us for an assessment.</span>
+    <div class="legal-line">
+      <span>© <span id="year">2026</span> Orange Therapeutic Services. Founder: Sarah Adu-Peprah.</span>
+      <span>Registration: <span class="ph" data-cms="registration_numbers">Registrar-General no. · Professional licence no.</span></span>
+      <span>Information on this site is general guidance, not a diagnosis. <a href="legal.html#website-disclaimer">Website Disclaimer</a>. In an emergency call 112.</span>
     </div>
   </div>
 </footer>
 
-<script>
-(function(){
-  // LIVE = deployed on Netlify (form handling available). GitHub Pages and previews fall back to copy-and-send on WhatsApp.
-  var LIVE=!/claude|github\.io|localhost|127\.0\.0\.1|^$/.test(location.hostname);
-  // Mobile menu
-  var btn=document.getElementById('menuBtn'), links=document.getElementById('navLinks');
-  btn.addEventListener('click',function(){
-    var open=links.dataset.open!=='true'; links.dataset.open=open; btn.setAttribute('aria-expanded',open);
-  });
-  links.addEventListener('click',function(e){ if(e.target.tagName==='A'){links.dataset.open='false';btn.setAttribute('aria-expanded','false');} });
+<a class="wa-fab" id="waFab" href="#contact" hidden aria-label="Chat with us on WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3z"/></svg>
+  <span>WhatsApp us</span>
+</a>
 
-  // Hero audience switch
-  var copy={
-    fam:{t:'Every child can grow. <em>We help you see how.</em>',l:"Behaviour therapy, psychological services, special education and occupational therapy for children with autism, ADHD, learning differences and other developmental needs. Each child gets a clear plan, sessions that fit the school term, and a progress review at the end of every term.",p:'Book an assessment',s:'See how it works',sh:'#how',pick:'family'},
-    inst:{t:'Inclusion that works <em>in real classrooms.</em>',l:'Training, inclusion audits and specialist consultancy for schools, NGOs, employers and government agencies that serve children with disabilities and learning differences.',p:'Request a proposal',s:'See our services',sh:'#institutions',pick:'institution'}
-  };
-  function setAud(a){
-    document.querySelectorAll('.switch button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.aud===a);});
-    var c=copy[a];
-    document.getElementById('heroTitle').innerHTML=c.t;
-    document.getElementById('heroLede').textContent=c.l;
-    var p=document.getElementById('heroPrimary'); p.textContent=c.p; p.dataset.pick=c.pick;
-    var s=document.getElementById('heroSecondary'); s.textContent=c.s; s.href=c.sh;
-    try{localStorage.setItem('ots-aud',a);}catch(e){}
-  }
-  document.querySelectorAll('.switch button').forEach(function(b){b.addEventListener('click',function(){setAud(b.dataset.aud);});});
-  try{var saved=localStorage.getItem('ots-aud'); if(saved==='inst') setAud('inst');}catch(e){}
+<div class="cookie" id="cookie" role="region" aria-label="Cookie notice" hidden>
+  <p><strong>Your privacy.</strong> This site uses only essential browser storage (to remember your choices). No analytics or advertising cookies, and no tracking. <a href="legal.html#cookie-policy">Cookie Policy</a></p>
+  <div class="cta-row"><button type="button" class="btn btn-primary" id="cookieOk">OK, got it</button></div>
+</div>
 
-  // Enquiry form branching
-  var fam=document.getElementById('famFields'), inst=document.getElementById('instFields');
-  function setType(v){ fam.hidden=v!=='family'; inst.hidden=v!=='institution'; document.getElementById(v==='family'?'t-family':'t-inst').checked=true; }
-  document.querySelectorAll('input[name="type"]').forEach(function(r){r.addEventListener('change',function(){setType(r.value);});});
-  document.addEventListener('click',function(e){ var a=e.target.closest('[data-pick]'); if(a) setType(a.dataset.pick); });
-
-  // Copy helpers
-  function copyText(text,btn){
-    var done=function(){var o=btn.textContent;btn.textContent='Copied';setTimeout(function(){btn.textContent=o;},1600);};
-    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,function(){selectFallback(btn)}); } else selectFallback(btn);
-  }
-  function selectFallback(btn){ var el=btn.previousElementSibling&&btn.previousElementSibling.querySelector?btn.previousElementSibling:btn.parentNode; var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent='Selected — press copy'; }
-  document.querySelectorAll('[data-copy]').forEach(function(b){ b.addEventListener('click',function(){ copyText(document.getElementById(b.dataset.copy).textContent.trim(),b); }); });
-
-  // Enquiry submit: build a message the visitor sends themselves
-  document.getElementById('enquiry').addEventListener('submit',function(e){
-    e.preventDefault();
-    var v=function(id){return document.getElementById(id).value.trim();};
-    var type=document.querySelector('input[name="type"]:checked').value, err=document.getElementById('formErr');
-    var missing=[];
-    if(!v('name')) missing.push('your name');
-    if(!v('phone')) missing.push('a phone or WhatsApp number');
-    if(!document.getElementById('consent').checked) missing.push('your consent');
-    if(missing.length){ err.textContent='Please add '+missing.join(', ')+' so we can reply.'; err.hidden=false; return; }
-    err.hidden=true;
-    var lines=['Hello Orange Therapeutic Services,','', 'Name: '+v('name'), 'Phone: '+v('phone')];
-    if(type==='family'){ lines.push('Enquiry: family'); if(v('age')) lines.push("Child's age: "+v('age')); if(v('concern')) lines.push('Main concern: '+v('concern')); if(v('service')) lines.push('Service: '+v('service')); }
-    else { lines.push('Enquiry: organisation'); if(v('org')) lines.push('Organisation: '+v('org')); if(v('need')) lines.push('Need: '+v('need')); }
-    if(v('msg')) lines.push('','Note: '+v('msg'));
-    document.getElementById('summary').textContent=lines.join('\n');
-    var form=this, res=document.getElementById('result'), btn=document.getElementById('sendBtn');
-    var showFallback=function(){ res.hidden=false; res.scrollIntoView({block:'nearest'}); };
-    if(!LIVE){ showFallback(); return; }
-    btn.disabled=true; btn.textContent='Sending…';
-    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()})
-      .then(function(r){ if(!r.ok) throw 0; form.innerHTML='<div class="result"><strong>Thank you, '+v('name').replace(/[<>&]/g,'')+'. Your enquiry has been sent.</strong><span>We\'ll contact you within one working day.</span></div>'; })
-      .catch(function(){ btn.disabled=false; btn.textContent='Send enquiry'; err.textContent='We couldn\'t send your enquiry. Please copy it below and send it to us on WhatsApp.'; err.hidden=false; showFallback(); });
-  });
-  document.getElementById('copySummary').addEventListener('click',function(){ copyText(document.getElementById('summary').textContent,this); });
-
-  // Resource form
-  document.getElementById('resForm').addEventListener('submit',function(e){
-    e.preventDefault(); var em=document.getElementById('resEmail').value.trim(), m=document.getElementById('resMsg');
-    if(!/^\S+@\S+\.\S+$/.test(em)){ m.textContent='Enter an email address like name@example.com.'; return; }
-    if(!LIVE){ m.textContent='Thanks. Sign-ups go live when the site is published.'; return; }
-    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(this)).toString()})
-      .then(function(r){ m.textContent=r.ok?'Thanks. We\'ll send the checklist to '+em+'.':'Something went wrong. Please try again.'; })
-      .catch(function(){ m.textContent='Something went wrong. Please try again.'; });
-  });
-})();
-</script>
-
+<script src="assets/js/config.js"></script>
+<script src="assets/js/site.js"></script>
 </body>
 </html>

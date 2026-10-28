@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /orange-therapeutic-services/admin/
+Sitemap: https://frank-peprah.github.io/orange-therapeutic-services/sitemap.xml
